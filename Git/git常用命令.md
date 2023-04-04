@@ -24,8 +24,10 @@
    * 提交后暂存区清空
 
 6. log：```git reflog``` / ```git log```
+
 7. 切换版本：```git reset --hard 版本号```
    * Git 切换版本，实际是底层移动HEAD指针。
+
 8. 分支操作
    * 分支：从开发主线上分离开来，本质上仅仅是指向提交对象的可变指针。
    * 优点：并行推进多个功能开发；各个分支互不影响
@@ -38,9 +40,16 @@
      * \=\=\=\=\=\=\=
      * \>\>\>\>\>\>\>master  合并过来的冲突代码
      * 解决冲突后git commit不能带文件名
+
 9. 远程仓库
    * 克隆：```git clone address```（拉取代码，初始化本地库，创建别名）
    * 别名：```git remote -v```(查看别名)        ```git remote add 别名 address ```(创建别名)
    * 推送：```git push 别名/地址 分支名```
    * 拉取：```git pull 别名/地址 分支名```
 
+10. 储存https帐号密码：
+
+    ```bash
+    git config --global credential.helper store
+    git config credential.helper store
+    ```

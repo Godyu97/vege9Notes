@@ -27,15 +27,25 @@ function isCmdExist() {
 }
 
 function relyInstall() {
-    if isCmdExist wget; then
-        echo "has installed wget"
+    local cmd="$1"
+    if isCmdExist "$cmd"; then
+        echo "has installed $cmd"
     else
-        echo "installing wget"
-        apt install wget
+        echo "installing $cmd"
+        apt install "$cmd"
     fi
 }
 
-relyInstall
+relyArr=(
+    wget
+    curl
+    git
+)
+
+for item in "${relyArr[@]}"; do
+    relyInstall "$item"
+done
+
 rmOldDir
 apt install zsh
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" &

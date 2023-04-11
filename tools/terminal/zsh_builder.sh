@@ -91,6 +91,8 @@ for item in "${relyArr[@]}"; do
     relyInstall "$item"
 done
 rmOldDir
+chsh -s /bin/zsh
+exec zsh
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" &
 wait
 echo "Child script has completed."

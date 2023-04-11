@@ -94,7 +94,7 @@ rmOldDir
 chsh -s /bin/zsh
 if [ "$0" != "zsh" ]; then
     echo "chsh to zsh, please source script again"
-    exit 0
+    return
 fi
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" &
 wait

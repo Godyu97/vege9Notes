@@ -1,4 +1,4 @@
-```
+```sh
 #更新系统
 apt update -y
 apt install -y curl
@@ -17,3 +17,11 @@ iptables -I INPUT -p tcp --dport 80 -j ACCEPT
 iptables -I INPUT -p tcp --dport 443 -j ACCEPT
 -------------------------------------------------------------
 ```
+
+```sh
+# xray 7合1 脚本
+wget -P /root -N --no-check-certificate "https://raw.githubusercontent.com/mack-a/v2ray-agent/master/install.sh" && chmod 700 /root/install.sh && /root/install.sh
+
+vasma 管理命令
+```
+

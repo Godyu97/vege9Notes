@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # exec commond for install zsh starship and .zshrc
-# wget -O ~/zsh_builder.sh https://raw.githubusercontent.com/Godyu97/vege9Notes/master/tools/zsh_builder.sh
+# wget -O ~/zsh_builder.sh https://raw.githubusercontent.com/Godyu97/vege9Notes/master/tools/terminal/zsh_builder.sh
 # sudo source ~/zsh_builder.sh
 
 # 根据系统获取安装命令
@@ -87,7 +87,7 @@ sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools
 wait
 echo "Child script has completed."
 curl -sS https://starship.rs/install.sh | sh
-wget -O ~/.zshrc https://raw.githubusercontent.com/Godyu97/vege9Notes/master/tools/conf/.zshrc
+wget -O "$HOME/.zshrc" https://raw.githubusercontent.com/Godyu97/vege9Notes/master/tools/conf/.zshrc
 
 pluginsPath=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins
 git clone https://github.com/zsh-users/zsh-completions "$pluginsPath/zsh-completions"

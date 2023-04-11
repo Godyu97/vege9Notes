@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # rm old "~/.oh-my-zsh/"
-ohmyzshDir="~/.oh-my-zsh/"
+ohmyzshDir="$HOME/.oh-my-zsh/"
 function rmOldDir() {
-    if [ -d $ohmyzshDir ]; then
+    if [ -d "$ohmyzshDir" ]; then
         echo "has oh-my-zsh DELETEING"
-        rm -rf $ohmyzshDir
+        rm -rf "$ohmyzshDir"
     else
         echo "installing oh-my-zsh"
     fi
@@ -53,4 +53,5 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$pluginsPath
 source ~/.zshrc
 
 # exec commond for install zsh starship and .zshrc
-# sudo source zsh_builder
+# wget -O ~/zsh_builder.sh https://raw.githubusercontent.com/Godyu97/vege9Notes/master/tools/zsh_builder.sh
+# sudo source zsh_builder.sh

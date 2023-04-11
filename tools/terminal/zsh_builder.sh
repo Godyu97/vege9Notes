@@ -92,7 +92,9 @@ for item in "${relyArr[@]}"; do
 done
 rmOldDir
 chsh -s /bin/zsh
-if [ "$0" != "*zsh*" ]; then
+if [[ "$0" =~ "zsh" ]]; then
+    echo "current shell zsh,continue install"
+else
     echo "chsh to zsh, please source script again"
     return
 fi

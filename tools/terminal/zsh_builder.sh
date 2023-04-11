@@ -52,6 +52,7 @@ function isCmdExist() {
     fi
 
     which "$cmd" >/dev/null 2>&1
+    # 返回值0代表cmd存在
     if [ $? -eq 0 ]; then
         return 0
     fi
@@ -62,11 +63,14 @@ function isCmdExist() {
 # install rely cmd
 function relyInstall() {
     local cmd="$1"
-    if isCmdExist "$cmd"; then
-        echo "has installed $cmd"
-    else
+    isCmdExist "$cmd"
+    if [ $? -eq 2 ]; then
         echo "installing $cmd"
         $installCmd "$cmd"
+    elif [ $? -eq 0 ]; then
+        echo "has installed $cmd"
+    else
+        echo "illegal params"
     fi
 }
 
@@ -91,8 +95,8 @@ wget -O "$HOME/.zshrc" https://raw.githubusercontent.com/Godyu97/vege9Notes/mast
 
 pluginsPath=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins
 git clone https://github.com/zsh-users/zsh-completions "$pluginsPath/zsh-completions"
-rm -f ~/.zcompdump
+rm -f "$HOME/.zcompdump"
 compinit
 git clone https://github.com/zsh-users/zsh-autosuggestions "$pluginsPath/zsh-autosuggestions"
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$pluginsPath/zsh-syntax-highlighting"
-source ~/.zshrc
+source $HOME/.zshrc

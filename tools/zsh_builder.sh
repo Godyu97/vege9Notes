@@ -1,5 +1,33 @@
 #!/bin/bash
 
+# 根据系统获取安装命令
+installCmd=""
+function OSInit() {
+    if [ "$(uname -s)" = "Darwin" ]; then
+        echo "Detected macOS"
+        # 在此处执行macOS上的安装命令
+        installCmd="brew install"
+    else
+        echo "Detected Linux"
+        # 在此处执行Linux上的安装命令
+        if [ -f /etc/os-release ]; then
+            source /etc/os-release
+            if [ "$ID" = "debian" ] || [ "$ID_LIKE" = "debian" ]; then
+                echo "Detected Debian-based distribution"
+                # 在此处执行Debian上的安装命令
+                installCmd="apt install"
+            elif [ "$ID" = "centos" ] || [ "$ID_LIKE" = "rhel fedora" ]; then
+                echo "Detected Red Hat-based distribution"
+                # 在此处执行Red Hat上的安装命令
+                installCmd="yum install"
+            else
+                echo "Unsupported distribution: $NAME"
+                exit 1
+            fi
+        fi
+    fi
+}
+
 # rm old "~/.oh-my-zsh/"
 ohmyzshDir="$HOME/.oh-my-zsh/"
 function rmOldDir() {
@@ -11,6 +39,7 @@ function rmOldDir() {
     fi
 }
 
+# judge cmd exist
 function isCmdExist() {
     local cmd="$1"
     if [ -z "$cmd" ]; then
@@ -26,28 +55,30 @@ function isCmdExist() {
     return 2
 }
 
+# install rely cmd
 function relyInstall() {
     local cmd="$1"
     if isCmdExist "$cmd"; then
         echo "has installed $cmd"
     else
         echo "installing $cmd"
-        apt install "$cmd"
+        $installCmd install "$cmd"
     fi
 }
 
+# rely cmd
 relyArr=(
     wget
     curl
     git
 )
-
+# main process
+OSInit
 for item in "${relyArr[@]}"; do
     relyInstall "$item"
 done
-
 rmOldDir
-apt install zsh
+$installCmd install zsh
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" &
 wait
 echo "Child script has completed."

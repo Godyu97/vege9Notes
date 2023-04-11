@@ -66,7 +66,7 @@ function relyInstall() {
         echo "has installed $cmd"
     else
         echo "installing $cmd"
-        $installCmd install "$cmd"
+        $installCmd "$cmd"
     fi
 }
 
@@ -75,6 +75,7 @@ relyArr=(
     wget
     curl
     git
+    zsh
 )
 # main process
 OSInit
@@ -82,7 +83,6 @@ for item in "${relyArr[@]}"; do
     relyInstall "$item"
 done
 rmOldDir
-$installCmd install zsh
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" &
 wait
 echo "Child script has completed."

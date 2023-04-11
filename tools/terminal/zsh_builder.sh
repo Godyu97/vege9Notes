@@ -98,6 +98,7 @@ else
     exit 0
 fi
 rmOldDir
+mkdir -p "$HOME/.cache/.zsh_history/"
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" &
 wait
 echo "Child script has completed."

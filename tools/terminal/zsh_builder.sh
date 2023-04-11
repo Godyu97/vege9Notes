@@ -91,12 +91,12 @@ for item in "${relyArr[@]}"; do
     relyInstall "$item"
 done
 rmOldDir
-chsh -s /bin/zsh
-echo $0
-if [[ "$0" =~ "zsh" ]]; then
+if [[ "$SHELL" =~ "zsh" ]]; then
     echo "current shell zsh,continue install"
 else
+    chsh -s /bin/zsh
     echo "chsh to zsh, please source script again"
+    zsh
     return
 fi
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" &

@@ -92,7 +92,10 @@ for item in "${relyArr[@]}"; do
 done
 rmOldDir
 chsh -s /bin/zsh
-exec zsh
+if [ "$0" != "zsh" ]; then
+    echo "chsh to zsh, please source script again"
+    exit 0
+fi
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" &
 wait
 echo "Child script has completed."

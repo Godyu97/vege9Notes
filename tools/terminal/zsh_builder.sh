@@ -63,11 +63,11 @@ function isCmdExist() {
 # install rely cmd
 function relyInstall() {
     local cmd="$1"
-    isCmdExist "$cmd"
-    if [ $? -eq 2 ]; then
+    local res=isCmdExist "$cmd"
+    if [ $res -eq 2 ]; then
         echo "installing $cmd"
         $installCmd "$cmd"
-    elif [ $? -eq 0 ]; then
+    elif [ $res -eq 0 ]; then
         echo "has installed $cmd"
     else
         echo "illegal params"

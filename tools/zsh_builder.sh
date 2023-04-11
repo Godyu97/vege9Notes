@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# exec commond for install zsh starship and .zshrc
+# wget -O ~/zsh_builder.sh https://raw.githubusercontent.com/Godyu97/vege9Notes/master/tools/zsh_builder.sh
+# sudo source ~/zsh_builder.sh
+
 # 根据系统获取安装命令
 installCmd=""
 function OSInit() {
@@ -92,7 +96,3 @@ compinit
 git clone https://github.com/zsh-users/zsh-autosuggestions "$pluginsPath/zsh-autosuggestions"
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$pluginsPath/zsh-syntax-highlighting"
 source ~/.zshrc
-
-# exec commond for install zsh starship and .zshrc
-# wget -O ~/zsh_builder.sh https://raw.githubusercontent.com/Godyu97/vege9Notes/master/tools/zsh_builder.sh
-# sudo source zsh_builder.sh

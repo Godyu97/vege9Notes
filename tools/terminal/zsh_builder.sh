@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # exec commond for install zsh starship and .zshrc
-# wget -O ~/zsh_builder.sh https://raw.githubusercontent.com/Godyu97/vege9Notes/master/tools/terminal/zsh_builder.sh
-# sudo source ~/zsh_builder.sh
+# wget -O ./zsh_builder.sh https://raw.githubusercontent.com/Godyu97/vege9Notes/master/tools/terminal/zsh_builder.sh
+# source ./zsh_builder.sh
 
 # 根据系统获取安装命令
 installCmd=""
@@ -10,7 +10,7 @@ function OSInit() {
     if [ "$(uname -s)" = "Darwin" ]; then
         echo "Detected macOS"
         # 在此处执行macOS上的安装命令
-        installCmd="brew install"
+        installCmd="sudo brew install"
     else
         echo "Detected Linux"
         # 在此处执行Linux上的安装命令
@@ -19,11 +19,11 @@ function OSInit() {
             if [ "$ID" = "debian" ] || [ "$ID_LIKE" = "debian" ]; then
                 echo "Detected Debian-based distribution"
                 # 在此处执行Debian上的安装命令
-                installCmd="apt install"
+                installCmd="sudo apt install"
             elif [ "$ID" = "centos" ] || [ "$ID_LIKE" = "rhel fedora" ]; then
                 echo "Detected Red Hat-based distribution"
                 # 在此处执行Red Hat上的安装命令
-                installCmd="yum install"
+                installCmd="sudo yum install"
             else
                 echo "Unsupported distribution: $NAME"
                 exit 1

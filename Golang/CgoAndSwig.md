@@ -1,3 +1,14 @@
+* linux安装
+
+
+```bash
+apt install libpcre2-dev
+./configure
+make
+sudo make install
+
+```
+
 * swig -c++ -cgo -go -intgosize 64 xxx.i
 
   ```c++
@@ -11,7 +22,7 @@
   
 
 * ```go
-  #cgo LDFLAGS: -lpcre++
+  #cgo LDFLAGS: -lpcre++ -lpcre
   #cgo CFLAGS: -I/usr/include
   ```
 

@@ -5,6 +5,8 @@
 * go get -u -v github.com/swaggo/files 
 * go get -u -v github.com/alecthomas/template
 * import _ ".../docs"
+* swag fmt //格式化注释
+* swag init // 生成docs
 
 
 
@@ -13,12 +15,13 @@
 
 
 ```
-//  @Summary      SendEmail
-// @Description   发送1条邮件
-// @Accept          application/json
-// @Produce      application/json
-// @Param       req    body      SendEmailReq            true   "req for email"
-// @Success      200    {object}   ApiResp{Body=SendEmailResp}    "Success"
-// @Failure      500    {object}   ApiResp{Body=SendEmailResp}    "服务器内部错误"
-// @Router          /ses/SendEmail [post]
+// @Summary		SmsWebApi
+//
+// @Description	发送短信
+// @Accept			application/json
+// @Produce		application/json
+// @Param			req	body		SmsWebApiReq			true	"req for email"
+// @Success		200	{object}	ApiResp{data=string}	"Success"
+// @Failure		500	{object}	ApiResp{data=string}	"服务器内部错误"
+// @Router			/v1/api/SmsWebApi [post]
 ```

@@ -75,7 +75,7 @@
 
 1. 获取git仓库
   * 在现有目录中初始化仓库：`git init`
-  * 从一个服务器克隆一个现有的 Git 仓库：`git clone [url] [defname]`
+  * 从一个服务器克隆一个现有的 Git 仓库：`git clone [url] <defname>`
   	* 在当前目录创建项目demo文件夹
   	* 从远程仓库克隆所有数据放入 ./demo/.git 文件夹
   	* 从 .git 中读取当前版本的文件内容到 ./demo
@@ -84,7 +84,11 @@
 2. 检查当前文件状态：`git status`
   * 显示索引文件和当前HEAD提交有差异的路径(已暂存)；工作树和索引文件有差异的路径(已修改)；工作树中不被Git追踪的路径(未跟踪)
 
-3. 忽略文件：无需纳入git管理的文件类型列表，在项目目录编写`.gitignore`文件。#注释
+3. 差异比较：`git diff`，工作区和暂存区快照之间的差异，尚未暂存的改动
+
+	* `git diff --staged`：暂存区和最后一次提交的差异
+
+4. 忽略文件：无需纳入git管理的文件类型列表，在项目目录编写`.gitignore`文件。#注释
 
 	* ```
 		# .idea config dir
@@ -94,12 +98,13 @@
 		*.log
 		```
 
-4. `git add [file]`：跟踪新文件、暂存已修改文件。总结来说就是将文件obj放到暂存区
+5. `git add [file]`：跟踪新文件、暂存已修改文件。总结来说就是将文件obj放到暂存区
 
-5. `git commit`：提交更新，提交的是放在暂存区域的快照。
+6. `git commit`：提交更新，提交的是放在暂存区域的快照。
 
 	* `git commit -m [docs:msg]`
 	* `git commit -a -m [docs:msg]`：自动将已修改的文件 git add，并 git commit
+	* ` git commit --amend`：重新提交，代替上一次提交结果，最终只有一次commit
 
 6. `git rm`：移除文件
 
@@ -121,3 +126,26 @@
 	* `git log -p`：显示每次提交的内容差异
 	* `git log --stat`：简略的统计信息
 
+9. `git reset [--mixed(默认) | --hard | soft] [HEAD] <file>`：重置当前HEAD版本号到指定状态，版本号可以为HEAD(当前已提交committed)，HEAD^(上个版本)，commit版本号
+	* --mixed：撤回到指定版本清空暂存区修改，保留工作区
+	* --soft：撤回到指定版本保留暂存区修改
+	* --hard：撤回到指定版本并清空工作区、暂存区所有修改
+
+## 远程仓库
+
+1. 查看远程库：`git remote -v`，origin url
+
+	* `git remote`：origin
+	* `git remote show [origin_name]`
+
+2. 添加远程库：`git remote add [origin_name] [url]`
+
+3. 远程库移除、重命名：`git remote rm [origin_name]`、`git remote rename [o_name] [n_name]`
+
+4. 拉取远程库：`git fetch [origin_name]`，不会自动合并
+
+	* `git merge [origin_name/branch]`：手动合并origin_name/branch到当前分支
+
+	* `git pull [origin_name]`：拉取并自动合并
+
+5. 推送到远程库：`git push [origin_name] [branch_name]`，必须先拉取并将其合并后才能推送

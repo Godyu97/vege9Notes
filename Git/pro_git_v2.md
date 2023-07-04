@@ -94,9 +94,27 @@
 		*.log
 		```
 
-4. `git add [file]`：跟踪新文件、暂存已修改文件。总结来说就是将文件放到暂存区
+4. `git add [file]`：跟踪新文件、暂存已修改文件。总结来说就是将文件obj放到暂存区
 
 5. `git commit`：提交更新，提交的是放在暂存区域的快照。
 
 	* `git commit -m [docs:msg]`
-	* `git commit -a -m [docs:msg]`：自动将
+	* `git commit -a -m [docs:msg]`：自动将已修改的文件 git add，并 git commit
+
+6. `git rm`：移除文件
+
+	* `git rm [file]`：删除工作区文件，并将此次删除放入暂存区，删除的文件要求未修改
+	* `git rm -f [file]`：删除工作区和暂存区文件，并将此次删除放入暂存区，删除的文件要求已修改
+	* `git rm --cache [file]`：删除暂存区快照但**保留工作区文件**，并将此次删除放入暂存区
+
+7. `git mv`：移动文件，改名
+
+	* 等价于
+
+		```bash
+		mv README.md README
+		git rm README.md
+		git add README
+		```
+
+		

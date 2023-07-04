@@ -112,9 +112,12 @@
 	* 等价于
 
 		```bash
-		mv README.md README
-		git rm README.md
-		git add README
+		mv f1 f2
+		git rm f1
+		git add f2
 		```
 
-		
+8. `git log`：查看提交历史
+	* `git log -p`：显示每次提交的内容差异
+	* `git log --stat`：简略的统计信息
+

@@ -76,12 +76,13 @@
 1. 获取git仓库
   * 在现有目录中初始化仓库：`git init`
   * 从一个服务器克隆一个现有的 Git 仓库：`git clone [url] <defname>`
-  	* 在当前目录创建项目demo文件夹
-  	* 从远程仓库克隆所有数据放入 ./demo/.git 文件夹
-  	* 从 .git 中读取当前版本的文件内容到 ./demo
-  	* defname 一般缺省为默认值，远程库的目录名
+	* 在当前目录创建项目demo文件夹
+	* 从远程仓库克隆所有数据放入 ./demo/.git 文件夹
+	* 从 .git 中读取当前版本的文件内容到 ./demo
+	* defname 一般缺省为默认值，远程库的目录名
 
-2. 检查当前文件状态：`git status`
+
+2. 检查当前文件状态：`git status`，比较工作区，暂存区，本地库的文件
   * 显示索引文件和当前HEAD提交有差异的路径(已暂存)；工作树和索引文件有差异的路径(已修改)；工作树中不被Git追踪的路径(未跟踪)
 
 3. 差异比较：`git diff`，工作区和暂存区快照之间的差异，尚未暂存的改动
@@ -102,34 +103,50 @@
 
 6. `git commit`：提交更新，提交的是放在暂存区域的快照。
 
-	* `git commit -m [docs:msg]`
-	* `git commit -a -m [docs:msg]`：自动将已修改的文件 git add，并 git commit
-	* ` git commit --amend`：重新提交，代替上一次提交结果，最终只有一次commit
+  * `git commit -m [comment]`
+  * `git commit -a -m [comment]`：自动将已修改的文件 git add，并 git commit
+  * ` git commit --amend`：重新提交，代替上一次提交结果，最终只有一次commit
+  * 在完成可描述的子模块、自认为可能出现问题的地方勤于commit
 
 6. `git rm`：移除文件
 
-	* `git rm [file]`：删除工作区文件、暂存区快照，并将此次删除放入暂存区，删除的文件要求未修改(已提交)
-	* `git rm -f [file]`：删除工作区文件、暂存区快照，并将此次删除放入暂存区
-	* `git rm --cache [file]`：删除暂存区快照但**保留工作区文件**，并将此次删除放入暂存区
+  * `git rm [file]`：删除工作区文件、暂存区快照，并将此次删除放入暂存区，删除的文件要求未修改(已提交)
+  * `git rm -f [file]`：删除工作区文件、暂存区快照，并将此次删除放入暂存区
+  * `git rm --cache [file]`：删除暂存区快照但**保留工作区文件**，并将此次删除放入暂存区
 
 7. `git mv`：移动文件，改名
 
-	* 等价于
+  * 等价于
 
-		```bash
-		mv f1 f2
-		git rm f1
-		git add f2
-		```
+  	```bash
+  	mv f1 f2
+  	git rm f1
+  	git add f2
+  	```
 
 8. `git log`：查看提交历史
-	* `git log -p`：显示每次提交的内容差异
-	* `git log --stat`：简略的统计信息
+  * `git log -p`：显示每次提交的内容差异
+  * `git log --stat`：简略的统计信息
 
 9. `git reset [--mixed(默认) | --hard | soft] [HEAD] <file>`：重置当前HEAD版本号到指定状态，版本号可以为HEAD(当前已提交committed)，HEAD^(上个版本)，commit版本号
-	* --mixed：撤回到指定版本清空暂存区修改，保留工作区
-	* --soft：撤回到指定版本保留暂存区修改
-	* --hard：撤回到指定版本并清空工作区、暂存区所有修改
+
+  * --soft：撤回到指定版本保留暂存区修改(移动HEAD)
+  * --mixed：撤回到指定版本清空暂存区修改，保留工作区(更新存储库)，取消暂存文件的效果
+  * --hard：撤回到指定版本并清空工作区、暂存区所有修改(更新工作区)
+
+10. `git clean`：git clean 一般在git reset --hard之后使用:
+
+	* git clean 影响没有被 track 过的文件（清除未被 add 或被 commit 的本地修改）；git reset 影响被 track 过的文件 （回退到上一个 commit）
+
+	* ```
+		-n：列出将要被删除的文件
+		
+		-d ：删除未被添加到 git 路径中的文件，将 .gitignore 标记的文件全部删除
+		
+		-x ：删除没有被 track 的文件，无论是否是.gitignore 标记的文件
+		
+		-f ：强制删除没有被 track 的文件，但不删除.gitignore 标记的文件
+		```
 
 ## 远程仓库
 
@@ -149,3 +166,60 @@
 	* `git pull [origin_name]`：拉取并自动合并
 
 5. 推送到远程库：`git push [origin_name] [branch_name]`，必须先拉取并将其合并后才能推送
+
+## 标签Tag
+
+1. Git 可以给历史中的某一个提交打上标签，以示重要
+2. 列出标签：`git tag -l "pattern"`
+3. 查看标签：`git show [tag_name]`
+4. 创建标签：`git tag -a [tag_name] <c_id> -m [comment]`//可以给历史commit打标签；轻量标签：`git tag [tag_name]`
+5. 删除标签：`git tag -d [tag_name]`
+6. 推送远程标签：`git push [origin_name] --tags`
+7. 删除远程标签：`git push origin -d [tagname]`
+
+## 分支模型
+
+1. 分支：本质上仅仅是指向提交对象的可变指针，可以理解为平行的独立开发线，用于多个任务的同时进行
+
+2. 默认分支：master，git init 默认创建
+
+3. 分支创建：`git branch [b_name] `
+
+4. 分支切换：`git checkout [b_name]`；-b 参数新建并切换；-d 参数删除分支
+
+5. 分支合并：`git merge [b_name]`，把b_name分支的内容合并到当前分支，保留全部的commit，分叉的commit记录，非破坏性操作
+
+6. 合并冲突：在两个不同的分支中，对同一个文件的同一个部分进行了不同的修改，Git 就没法干净的合并它们。即，产生了冲突
+
+  * 解决冲突：冲突后文件像下面这样，被======分割的两部分为两分支在该位置的内容，删除掉多余的符号，然后将src改为你期望的内容，最后做一次commit，就成功的解决了冲突
+
+    ```
+    <<<<<<< HEAD:index.html
+    src1
+    =======
+    src2
+    >>>>>>> b_name:index.html
+    ```
+
+  * 中断合并：`git merge --abort`，恢复到你运行合并前的状态
+
+7. 分支列表：`git branch`；显示各分支最后一次commit：`git branch -v`
+
+8. 变基：`git rebase [b_name]`：合并分支，并将基地移动到目标的顶端，整合目标分支的commit，线性commit记录
+
+	* 黄金法则：永远不要在**公共**分支上使用它
+
+## 传输协议
+
+* 本地协议
+* 智能http协议
+* 哑http协议
+* ssh协议
+* git协议
+
+## 凭证存储
+
+- 默认所有都不缓存。 每一次连接都会询问你的用户名和密码。
+- ``cache'' 模式会将凭证存放在内存中一段时间。 密码永远不会被存储在磁盘中，并且在15分钟后从内存中清除。
+- ``store'' 模式会将凭证用明文的形式存放在磁盘中，并且永不过期。 这意味着除非你修改了你在 Git 服务器上的密码，否则你永远不需要再次输入你的凭证信息。 这种方式的缺点是你的密码是用明文的方式存放在你的 home 目录下。
+- `git config --global credential.helper [cache | store]`

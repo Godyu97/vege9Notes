@@ -7,6 +7,7 @@
 * import _ ".../docs"
 * swag fmt //格式化注释
 * swag init // 生成docs
+* swaggerignore tag //类型零值不生成对应字段的文档
 
 
 

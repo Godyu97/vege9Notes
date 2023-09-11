@@ -72,43 +72,9 @@
 	* 规范
 		* 小驼峰命名法
 
-### 数组(Array)
-
-1. 数组声明及初始化
-
-	* `let arr = [p1,p2,...];`中括号、有序
-	* `let arr = new Array(p1,p2,...);`构造函数
-
-2. 数组取值：`arr[index]`
-
-3. 数组操作
-
-	* 增
-
-		* `arr.push(p_i,...);`添加元素到arr末尾，返回值为arr的新length
-		* `arr.unshift(p_0,...);`添加元素到arr开头，返回值为arr的新length
-
-	* 删
-
-		* `arr.pop();`删除arr最后一个元素，返回值为被删除的元素
-		* `arr.shift();`删除arr第一个元素，返回值为被删除的元素
-		* `arr.splice(star,del_count);`从arr指定位置开始删除del_count个元素；del_count缺省则为star到最后全删除；arr[star]会被删除
-
-	* 排序
-
-		* `arr.sort();`默认排序是将元素转换为字符串，然后按照它们的 UTF-16 码元值升序排序。
-
-		* `arr.sort(compareFn);` 升序：a-b   降序：b-a
-
-			![compareFn][imgcompareFn]
-
-4. 数组可以储存任意数据类型的元素
-
-5. 数组长度：数组的length属性 = 最大索引号+1
-
 ### JavaScript 常量
 
-1. 常量声明：`const G = 9.8;`必须初始化，不可改变
+* 常量声明：`const G = 9.8;`必须初始化，不可改变
 
 ### JavaScript 数据类型
 
@@ -125,16 +91,20 @@
 	* **undefined** 未定义类型 只声明未赋值的变量的值
 		* 可通过检查变量是不是undefined判断用户是否有数据传递来
 	* **null** 空值，赋值了内容为空，把null作为尚未创建的对象(类型为object)
-* 引用数据类型
-	* object 对象
+* 引用数据类型：可以通过new构造的类型
+	* Dbject
+	* Array
+	* Date
 * 类型判断：`typeof v_name`、`typeof(v_name)`
 * 类型转换
 	* 隐式转换
 		* +加号两边只要有一个是string，会把另一个转成string
 		* 其他算数运算符 - * / % 会把数据转换成number
 		* +加号、-减号连接数字型string，会转换成对应的number
+		* 空字符串""转换为0；null转换为0；undefined转换为NaN
 	* 显式转换
 		* `Number(v_name)`、`parseInt(v_name)`、`parseFloat(v_name)`：如果字符串内容非数字，结果为NaN
+		* `Boolean(v_name)`：空字符串""、0、undefined、null、false、NaN为false，其他情况为true
 	* form、prompt传递的数据默认是string
 
 ### JavaScript 运算符
@@ -223,7 +193,7 @@
 
 ### JavaScript 函数
 
-* 声明函数：命名和变量命名基本一致，小驼峰。调用函数，执行函数体，一次声明多次调用。
+* 函数声明：命名和变量命名基本一致，小驼峰。调用函数，执行函数体，一次声明多次调用。
 
 	```javascript
 	function fn_name(a,b) {
@@ -239,6 +209,12 @@
 	* 多个形参之间逗号隔开，声明时形参可以**用等号指定默认值**，参数没有数据类型关键字
 	* 调用函数，实参缺省为默认值，undefined
 	* 传入实参为undefined会被默认值覆盖
+
+* 逻辑中断
+
+	* 短路：&&、|| 当满足一定条件让右边代码不执行；运算结果为最后被执行的表达式，一般用于变量赋值
+		* &&：遇到false后面不继续执行
+		* ||：遇到true后面不继续执行
 
 * 函数返回值：`return ret`
 
@@ -263,7 +239,7 @@
 		fn(p1,p2);
 		```
 
-	* 立即执行函数：避免全局变量之间的污染
+	* 立即执行函数：避免全局变量之间的污染，立即执行函数可以有名字并立即执行
 
 		```javascript
 		(function() {
@@ -282,7 +258,103 @@
 * 就近原则：不同作用域相同名字的变量(不是同一个变量)，取当前最小作用域的变量对象
 * ~~函数内部直接赋值变量，不声明，函数调用后，该变量提升为全局变量~~
 
+### JavaScript 数组(Array)
 
+* 数组声明及初始化
+
+	* `let arr = [p1,p2,...];`中括号、**有序**
+
+	* `let arr = new Array(p1,p2,...);`构造函数
+
+* 数组取值：`arr[index]`
+
+* 数组操作
+
+	* 增
+
+		* `arr.push(p_i,...);`添加元素到arr末尾，返回值为arr的新length
+		* `arr.unshift(p_0,...);`添加元素到arr开头，返回值为arr的新length
+
+
+	* 删
+
+		* `arr.pop();`删除arr最后一个元素，返回值为被删除的元素
+		* `arr.shift();`删除arr第一个元素，返回值为被删除的元素
+		* `arr.splice(star,del_count);`从arr指定位置开始删除del_count个元素；del_count缺省则为star到最后全删除；arr[star]会被删除
+
+
+	* 排序
+
+		* `arr.sort();`默认排序是将元素转换为字符串，然后按照它们的 UTF-16 码元值升序排序。
+
+		* `arr.sort(compareFn);` 升序：a-b   降序：b-a
+
+			![compareFn][imgcompareFn]
+
+* 数组可以储存任意数据类型的元素
+
+* 数组长度：数组的length属性 = 最大索引号+1
+
+* 数组遍历
+
+	```javascript
+	//推荐fori
+	for (let i = 0; i < arr.length; i++) {
+	    console.log(i); //i是索引number
+	    console.log(arr[i]);
+	}
+	for (let k in arr) {
+	    console.log(k); //k是索引的string
+	    console.log(arr[k]);
+	}
+	```
+
+### JavaScript 对象(Object)
+
+* 对象(object)：js中的一种数据类型，**无序**的数据集合
+
+*  对象声明
+
+	* `let o_name = {};`：大括号
+	* `let o_name = new Object();`
+
+* 对象由属性和方法组成：字段名可以是变量名，也可以是字符串
+
+	* 属性：值
+	* 方法：函数
+
+* 对象操作
+
+	* 查：`o_name.属性、o_name["属性"]`
+	* 改：`o_name.属性=值;`
+	* 增：`o_name.属性=值;`
+	* 删：`delete o_name.属性;`
+
+* 对象遍历
+
+	```javascript
+	for (let k in o_name){
+	    console.log(k);//k字段名string
+	    console.log(o_name[k]);
+	}
+	```
+
+* 内置对象
+
+	* null：空对象
+	* document
+	* console
+	* Math
+
+
+### JavaScript 堆栈
+
+* 值类型：基本数据类型，栈中储存的是值本身
+* 引用类型：复杂数据类型，栈中储存对象地址，数据存放到堆
+* 栈：操作系统自动分配释放存放函数的参数值，基本数据类型存放到栈
+* 堆：存储复杂类型，一般由程序员分配释放、垃圾回执机制回收，引用数据类型存放到堆
+
+### JavaScript 变量声明 const 优先
 
 
 

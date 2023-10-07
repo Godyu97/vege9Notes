@@ -12,6 +12,9 @@
   * 无缓冲区的chan：发送值会阻塞
   * 有缓冲区的chan：如缓冲为1，发送值不会阻塞
   * 慎用close关闭chan，关闭的chan再发送值会panic
+  * chan循环取值：会阻塞直到close(ch)
+  	* for range：close(ch)后结束阻塞
+  	* for {}：根据ok判断是否break
 * goroutine中的业务函数，谨慎使用外部作用域的变量，尽量使用chan通信
 * 超时控制：超时后无法强制kill goroutine，业务协程会继续执行
   * time.After、time.NewTimer、context等配合select方案

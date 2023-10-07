@@ -20,21 +20,23 @@
 
 1. **根据CSS选择器来获取DOM元素**
 
-	```javascript
-	//参数为一个或多个有效的css选择器字符串
-	//获取匹配的**第一个**元素
-	document.querySelector("css_selector")
-	//获取匹配的所有的元素：NodeList伪数组没有pop，push等方法
-	document.querySelectorAll("css_selector");
-	```
+  ```javascript
+  //参数为一个或多个有效的css选择器字符串
+  //获取匹配的**第一个**元素
+  document.querySelector("css_selector")
+  //获取匹配的所有的元素：NodeList伪数组没有pop，push等方法
+  document.querySelectorAll("css_selector");
+  ```
 
-2. 其他
+2. body标签唯一：`document.body`
 
-	```javascript
-	document.getElementById("id")
-	...
-	document.getElementsBy...
-	```
+3. 其他
+
+  ```javascript
+  document.getElementById("id")
+  ...
+  document.getElementsBy...
+  ```
 
 #### 操作元素内容
 
@@ -44,13 +46,24 @@
 #### 操作元素属性
 
 * 常用属性
-	* href
-	* title
-	* src
+  * href
+  * title
+  * src
 * 样式属性：操作css
-	* style
-	* className
-	* classList
+  * style：`d_name.style.样式属性 = 值;`；样式属性小驼峰命名，赋值记得加单位。**生成行内样式表，权重高**
+  * className：`d_name.className = "类名";`；class属性，新值换旧值，可以同时赋值多个类名，用空格连接。**类名不加点(.)**
+  * **classList**：解决className覆盖旧类名的问题。**类名不加点(.)**
+  	* `d_name.classList.add("类名");`：加
+  	* `d_name.classList.remove("类名");`：删
+  	* `d_name.classList.toggle("类名");`：切换，有就删，无就加
+* 表单元素属性
+	* value：获取用户输入表单的值
+	* type：checkbox、text、password...
+	* disabled：boolean，true禁用，false不禁用
+	* checked：boolean，true选中，false不选中
+	* selected：boolean
+
+* 自定义属性
 
 
 

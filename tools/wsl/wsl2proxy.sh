@@ -1,7 +1,7 @@
 #!/bin/bash
 hostip=$(cat /etc/resolv.conf | grep nameserver | awk '{ print $2 }')
 wslip=$(hostname -I | awk '{print $1}')
-port=10811
+port=10810
 
 PROXY_HTTP="http://${hostip}:${port}"
 
@@ -10,7 +10,7 @@ set_proxy(){
     export HTTP_PROXY="${PROXY_HTTP}"
 
     export https_proxy="${PROXY_HTTP}"
-    export HTTPS_proxy="${PROXY_HTTP}"
+    export HTTPS_PROXY="${PROXY_HTTP}"
 
     git config --global http.proxy "${PROXY_HTTP}"
     git config --global https.proxy "${PROXY_HTTP}"

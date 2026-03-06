@@ -1,5 +1,5 @@
 * struct深浅拷贝问题：出现于结构体字段有引用类型时，出现变量意外被修改的状况 [Go 结构体深浅拷贝](https://www.ssgeek.com/post/golang-jie-gou-ti-lei-xing-de-shen-qian-kao-bei/#3-%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D)
-	* 有引用类型字段的结构体，并且有写操作场景，尽量使用指针
+  * 有引用类型字段的结构体，并且有写操作场景，尽量使用指针
 
 * 交叉编译：[跨平台静态编译](https://imwnk.cn/archives/cgo-compile/)
   * `CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags '-s -w --extldflags "-static -fpic"' -o ./build/`
@@ -19,3 +19,14 @@
 * 超时控制：超时后无法强制kill goroutine，业务协程会继续执行
   * time.After、time.NewTimer、context等配合select方案
   * 注意通过通信来共享内存：使用chan 来传输数据，不要直接操作外部作用域的变量
+
+* 涉及到虚拟线程的io库，比如各种文件读写、socket读写等等。go所有io行为都是实现io的reader和writer，go的协程发现任何io行为，自动让渡cpu。所以可以在同步中任意穿插协程。
+
+* protoc && 插件安装
+  * protoc:https://github.com/protocolbuffers/protobuf/releases
+  * ``` go install google.golang.org/protobuf/cmd/protoc-gen-go@latest```
+  * ``` go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest```
+  * ```go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest```
+  * ```go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest```
+* protoc生成go
+	* ```protoc --proto_path=proto --go_out=./pb --go_opt=paths=source_relative --go-grpc_out=./pb --go-grpc_opt=paths=source_relative proto/*.proto```

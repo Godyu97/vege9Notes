@@ -74,6 +74,9 @@ export LC_ALL="zh_CN.UTF-8"
 # 让ls和dir命令显示中文和颜色 
 alias ls='ls --show-control-chars --color' 
 alias dir='dir -N --color' 
+# other
+alias make="mingw32-make"
+alias cls="clear"
 # 设置为中文环境，使提示成为中文 
 export LANG="zh_CN" 
 # 输出为中文编码 
